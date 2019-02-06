@@ -1,0 +1,65 @@
+package com.myLibrary;
+
+public class VersionStrings {
+
+	public String a; 
+	public String b;
+	
+	public VersionStrings(VersionStrings x) {
+		this.a = x.a;
+		this.b = x.b;
+	}
+	
+	public VersionStrings(String a, String b) {
+		this.a = a;
+		this.b = b;
+	}
+	
+	
+/**
+* 
+* @param a the first version String
+* @param b the second version String
+* @return a string stating if one version is greater than the other or if they are equal
+* Note 1: it does not state if one is smaller since it is implied when one is larger than the other
+* Note 2: does not account for trailing 0s assuming .10 is for the 10th minor change
+*
+*/ 
+	public String compareVersionString() {
+			
+		String[] firstVersion = a.split("\\.");
+		String[] secondVersion = b.split("\\.");
+
+		if (firstVersion.length < secondVersion.length) {
+			for(int i = 0; i < firstVersion.length; i++) {
+				
+				int first = Integer.parseInt(firstVersion[i]);
+				int second = Integer.parseInt(secondVersion[i]);
+
+				if(first < second) {
+					return b + " is greater than " + a;
+				} else if (first > second){
+					return a + " is greater than " + b;
+				}
+			}
+			return b + " is greater than " + a;
+		} else {
+			for(int i = 0; i < secondVersion.length; i++) {
+			
+				int first = Integer.parseInt(firstVersion[i]);
+				int second = Integer.parseInt(secondVersion[i]);
+			
+				if(first < second) {
+					return b + " is greater than " + a;
+				} else if (first > second){
+					return a + " is greater than " + b;
+				}
+			}
+			
+			if (firstVersion.length == secondVersion.length) {
+				return "A and B are equal";
+			}
+			return a + " is greater than " + b;	
+		}
+	}
+}
