@@ -1,0 +1,24 @@
+How to approach the problem:
+
+For the LRU cache I would implement an LinkedHashMap which is a combination of a hashMap and LinkedList. Using this would allow for an O(1) efficiency and 
+keep track of the order of which element got added in. 
+
+1. When an initial value is stored it is entered in the LinkedHashMap.
+2. When a subsequent value is added that is not already in the LinkedHashMap, it gets added in.
+3. If the value is already in the LinkedHashMap it gets removed and added back. This would change the order in which it gets added to the LinkedHashMap (as it 
+   is now the most recently used)
+4. If the LinkedHashMap is full, the new entry would replace the entry that was entered first. 
+
+Each entry would be entered with a timer. When the timer times out, it gets removed from the linkedHashMap.
+
+Potential problems: This method is not thread safe. Therefore we would need to implement semaphore to allow only one thread to write to the cache 
+and other threads would have to wait for the resource to be made available able. 
+
+For the Geo Distributed portion:
+
+Case: Servers are in different locations have the same information.
+ - 	Use the combined cache (memcached). (Similar to the observer pattern, the memcached would act like the subject and
+ 	the other servers would act as observers.) If a server is down users would connect to the next closes server to retrieve information. To know if a server is
+ 	down, response time would be tracked and if it is too long, there would be a notification to switch servers.
+
+ 
